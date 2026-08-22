@@ -22,6 +22,9 @@ def computer_guess(x):
     feedback = ''
 
     while feedback != 'c':
+        """this becomes significant after few guesses when the possibility of multiple numbers remain.
+           when the low and high are not equal like 4 and 7 then 5 and 6 are still possible but when 5 
+           is high and low then that is the correct number."""
         if low != high:
             guess = random.randint(low, high)
         else:
