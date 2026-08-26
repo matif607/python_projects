@@ -1,3 +1,5 @@
+import random
+
 class Player:
   def __init__(self, letter) -> None:
     self.letter = letter
@@ -11,11 +13,13 @@ class RandomComputerPlayer(Player):
     super().__init__(letter)
   
   def get_move(self, game):
-    return super().get_move(game)
+    square = random.choice(game.available_moves())
+    return square
 
 class HumanPlayer(Player):
   def __init__(self, letter):
     super().__init__(letter)
   
   def get_move(self, game):
-    pass
+    square = int(input("your move (0-8): "))
+    return square
