@@ -1,5 +1,5 @@
 from player import HumanPlayer, RandomComputerPlayer
-
+import time
 
 class TicTacToe:
   def __init__(self) -> None: # why board is not there along with self?
@@ -48,18 +48,34 @@ class TicTacToe:
       if all(spot == letter for spot in diagonal2):
         return True
     return False
+  
+def play(game, x_player, o_player):
+  game.print_board()
+  letter = "X"
+
+  while game.empty_squares():
+    if letter == "O":
+      square = o_player.get_move(game)
+    else:
+      square = x_player.get_move(game)
+    
+    if game.make_move(square, letter):
+      print(letter + f"makes a move to square {square}")
+      game.print_board()
+
+      if game.winner(square, letter):
+        print(letter + " " + "wins")
+        return letter
+      
+      letter = "O" if letter == "X" else "X"
+    
+    time.sleep(0.8)
+  
+  print("It's a tie!")
 
 
 if __name__ == "__main__":
-  game = TicTacToe()
-  # bot = RandomComputerPlayer("O")
-  # human = HumanPlayer("X")
-  # move = bot.get_move(game)
-  # print(move)
-  game.make_move(0, "X")
-  game.make_move(3, "X")
-  game.make_move(6, "X")
-  # human_move = human.get_move(game)
-  # game.make_move(human_move, human.letter)
-  game.print_board()
-  print(game.winner(0, "X"))
+  t = TicTacToe()
+  x_player = HumanPlayer("X")
+  o_player = RandomComputerPlayer("O")
+  play(t, x_player, o_player)
